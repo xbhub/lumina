@@ -1,4 +1,15 @@
 {
+  "name": "lumina",
+  "version": "1.0.1",
+  "description": "lumina js",
+  "license": "MIT",
+  "main": "",
+  "repository": "git://github.com/xbhub/lumina",
+  "homepage": "https://github.com/xbhub/lumina",
+  "bugs": "https://github.com/xbhub/lumina/issues",
+  "author": {
+  "name": "jory",
+  "email": "jorycn@163.com",
   "private": true,
   "scripts": {
   },
