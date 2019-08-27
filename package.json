@@ -1,5 +1,5 @@
 {
-  "name": "lumina",
+  "name": "xbt-lumina",
   "version": "1.0.1",
   "description": "lumina js",
   "license": "MIT",
@@ -8,11 +8,10 @@
   "homepage": "https://github.com/xbhub/lumina",
   "bugs": "https://github.com/xbhub/lumina/issues",
   "author": {
-  "name": "jory",
-  "email": "jorycn@163.com",
-  "private": true,
-  "scripts": {
+    "name": "jory",
+    "email": "jorycn@163.com"
   },
+  "private": false,
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
