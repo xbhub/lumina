@@ -4,8 +4,8 @@
   "description": "lumina js",
   "license": "MIT",
   "main": "",
-  "repository": "git://github.com/xbhub/lumina",
-  "homepage": "https://github.com/xbhub/lumina",
+  "repository": "git://github.com/xbhub/lumina.js",
+  "homepage": "https://github.com/xbhub/lumina.js",
   "bugs": "https://github.com/xbhub/lumina/issues",
   "author": {
     "name": "jory",
