@@ -120,16 +120,6 @@ var js_min_options = {
         }
     }
 
-//注册 build_dist 任务
-gulp.task('build_dist', gulp.series(
-    delDist,
-    compileAutoprefixer,
-    miniCSS,
-    miniJs,
-    copyResource,
-    // backupStatic
-));
-
 
 
 function delStatic(){
@@ -152,6 +142,17 @@ function unzipBackup(){
         .pipe(unzip())
         .pipe(gulp.dest(paths.src.dir));
 }
+
+
+//注册 build_dist 任务
+gulp.task('build_dist', gulp.series(
+    delDist,
+    compileAutoprefixer,
+    miniCSS,
+    miniJs,
+    copyResource,
+    // backupStatic
+));
 
 //注册 build_dist 任务
 gulp.task('build_dev', gulp.series(

@@ -1,6 +1,6 @@
 {
   "name": "lumina.js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "lumina js",
   "license": "MIT",
   "main": "",
@@ -44,5 +44,8 @@
     "v-click-outside-x": "^4.0.5",
     "vue": "^2.5.17",
     "vue-template-compiler": "^2.6.10"
+  },
+  "dependencies": {
+    "del": "^5.1.0"
   }
 }
