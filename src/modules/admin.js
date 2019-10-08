@@ -178,6 +178,11 @@ layui.extend({
             var t = Admin.tabsBody(Admin.tabsPage.index).find(e);
             t[0].contentWindow.location.reload(!0)
         },
+        openThisTab: function(){
+            var _idx = $(this).data('idx') || Admin.tabsPage.index
+            var _href = $($navs + ">li").eq(_idx).attr('lay-attr');
+            window.parent.open(_href)
+        },
         closeThisTabs: function () {
             var _idx = $(this).data('idx') || Admin.tabsPage.index
             _idx && $($navs + ">li").eq(_idx).find(".fa-close").trigger("click")

@@ -135,10 +135,11 @@ layui.define(['jquery', 'util'], function (exports) {
                 }
                 var index = index || othis.parent().children('li').index(othis),
                     subHtml = ['<div class="fixed m-subtab" style="z-index:99999;left: ' + e.pageX + 'px;top: ' + e.pageY + 'px;"><dl class="layui-nav-child layui-anim-fadein layui-anim layui-anim-upbit layui-show">',
-                        '<dd lumina-event="refreshThisTab" data-idx="' + index + '" class="border-b"><a href="javascript:;">刷新</a></dd>',
+                        '<dd lumina-event="refreshThisTab" data-idx="' + index + '"  class="border-b"><a href="javascript:;">刷新</a></dd>',
                         '<dd lumina-event="closeThisTabs" data-idx="' + index + '"><a href="javascript:;">关闭</a></dd>',
                         '<dd lumina-event="closeOtherTabs" data-idx="' + index + '"><a href="javascript:;">关闭其它标签</a></dd>',
-                        '<dd lumina-event="closeAllTabs" data-idx="' + index + '"><a href="javascript:;">关闭全部标签</a></dd></dl></div>'
+                        '<dd lumina-event="closeAllTabs" data-idx="' + index + '"><a href="javascript:;">关闭全部标签</a></dd></dl></div>',
+                        '<dd lumina-event="openThisTab" data-idx="' + index + '"><a href="javascript:;">新窗口打开</a></dd>',
                     ].join('');
 
                 othis.append(subHtml)
