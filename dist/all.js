@@ -1,0 +1,1 @@
+"use strict";layui.define(function(i){var a=layui.cache;layui.config({dir:a.dir.replace(/lay\/dest\/$/,"")}),i("layui.all",layui.v)});
