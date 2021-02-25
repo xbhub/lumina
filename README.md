@@ -1,3 +1,9 @@
 # lumina.js
 
-js for lumina
+```bash
+
+npm i
+gulp build_dist
+
+
+```

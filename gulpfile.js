@@ -11,15 +11,15 @@ var minifyCSS = require('gulp-cssnano');
 var postcss = require('gulp-postcss'); // CSS 预处理
 var postcssAutoprefixer = require('autoprefixer');
 var util = require('gulp-util');
+var concat = require('gulp-concat');
 
 var back_up_number = 3;
 var paths = {
     src: {
-        dir: './resources/lumina',
-        backup: __dirname + '/storage/backup/static'
+        dir: './src'
     },
     dist: {
-        dir: './public/lumina'
+        dir: './dist'
     }
 }
 
@@ -83,13 +83,8 @@ function devMiniJs() {
 }
 
 function delDist() {
-    return del([paths.dist.dir]);
+    return del([paths.dist.dir], {force: true});
 }
-
-function delDev() {
-    return del([paths.src.dir])
-}
-
 
 // 复制资源
 function copyResource() {
@@ -97,63 +92,48 @@ function copyResource() {
         .pipe(gulp.dest(paths.dist.dir));
 }
 
-function backupStatic() {
-    var timestamp = moment(new Date()).format('YYYYMMDDHHmmss')
-    return gulp.src(paths.src.dir + '/**/*')
-        .pipe(zip('static_' + timestamp + '.zip'))
-        .pipe(gulp.dest(paths.src.backup))
-        .on('end', function () {
-            // delDev();
-            removeOldBackup();
-        })
+function alljs() {
+
+    var mods = 'lodash.core,laytpl,laypage,slider,colorpicker,form,tree,transfer,dropdown,carousel,rate,flow'
+    var src = [
+        paths.src.dir + '/lumina.js',
+        paths.src.dir + '/packages/layer.js',
+        paths.src.dir + '/util.js',
+        paths.src.dir + '/all.js',
+        paths.src.dir + '/packages/element.js',
+        paths.src.dir + '/packages/laydate/laydate.js',
+        paths.src.dir + '/extends/upload/upload.js',
+        paths.src.dir + '/packages/**/{'+mods+'}.js',
+        paths.src.dir + '/admin.js',
+        paths.src.dir + '/packages/table.js'
+    ];
+
+    return gulp.src(src).pipe(uglify())
+      .pipe(concat('lumina.all.js', {newLine: ''}))
+    .pipe(gulp.dest(paths.dist.dir));
 }
 
-function removeOldBackup() {
-    var file = fs.readdirSync(paths.src.backup);
-    var backupArr = []
-    file.forEach(function (ele, index) {
-        var _file_path = paths.src.backup + "\\" + ele
-        var info = fs.statSync(_file_path);
-        backupArr.push({
-            'path': _file_path,
-            'created_at': info.ctime
+function allcss() {
+    var src = [
+        paths.src.dir + '/style/lumina.css',
+        paths.src.dir + '/packages/laydate/laydate.css',
+        paths.src.dir + '/extends/upload/upload.css',
+        paths.src.dir + '/extends/wangEditor/css/wangEditor.css',
+    ]
+    return gulp.src(src).pipe(minifyCSS({
+        safe: true,
+        reduceTransforms: false,
+        advanced: false,
+        compatibility: 'ie7',
+        keepSpecialComments: 0
+    }))
+    .pipe(postcss([
+        postcssAutoprefixer({
+            browsers: ['last 5 versions']
         })
-    })
-
-    if (backupArr.length > back_up_number) {
-        backupArr = backupArr.sort(function (a, b) {
-            return b.created_at - a.created_at;
-        })
-        for (var i = back_up_number; i < backupArr.length; i++) {
-            del(backupArr[i].path)
-        }
-    }
-}
-
-
-
-function delStatic() {
-    del([paths.src.dir])
-    return del([paths.dist.dir])
-}
-
-function unzipBackup() {
-    var file = fs.readdirSync(paths.src.backup);
-    var backupArr = []
-    file.forEach(function (ele, index) {
-        var _file_path = paths.src.backup + "/" + ele
-        var info = fs.statSync(_file_path);
-        backupArr.push({
-            'path': _file_path,
-            'created_at': info.ctime
-        })
-    })
-    backupArr = backupArr.sort(function (a, b) {
-        return b.created_at - a.created_at;
-    })
-    return gulp.src(__dirname + '/public/static.zip')
-        .pipe(unzip())
-        .pipe(gulp.dest(paths.src.dir));
+    ]))
+    .pipe(concat('lumina.all.css', {newLine: ''}))
+    .pipe(gulp.dest(paths.dist.dir + '/style'));
 }
 
 
@@ -212,20 +192,19 @@ function watch(cb) {
 
 //注册 build_dist 任务
 gulp.task('build_dist', gulp.series(
-    delDist,
-    compileAutoprefixer,
-    miniCSS,
-    miniJs,
     copyResource,
+    miniJs,
+    alljs,
+    allcss
     // backupStatic
 ));
 
 //注册 build_dist 任务
 gulp.task('build_dev', gulp.series(
     delDist,
-    compileAutoprefixer,
-    miniCSS,
-    devMiniJs,
+    miniJs,
     copyResource,
+    alljs,
+    allcss,
     watch
 ));
