@@ -1,15 +1,12 @@
-<p align=center>
+<h1 align=center>
   <a href="http://www.xbhub.com">
     Lumina.js
   </a>
-</p>
-<p align=center>
-  Layui 个人维护版
-</p>
-
+</h1>
+  > Layui 个人维护版
 
 ```bash
-
+// 安装
 npm i
 gulp build_dist
 
